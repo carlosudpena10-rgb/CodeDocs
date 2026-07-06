@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodeDocs — Documentación con IA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- CURSOR PERSONALIZADO -->
+<div id="cursor"></div>
+<div id="cursor-dot"></div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nav-logo">Code<span>Docs</span></div>
+  <ul class="nav-links">
+    <li><a href="#features">Características</a></li>
+    <li><a href="#generador">Generador</a></li>
+    <li><a href="#como">Cómo funciona</a></li>
+    <li><a href="#equipo">Equipo</a></li>
+    <li><a href="#generador" class="nav-cta">Probar ahora</a></li>
+  </ul>
+  <button class="nav-menu-btn" id="menuBtn" onclick="toggleMenu()">☰</button>
+</nav>
+
+<!-- MENÚ MÓVIL -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#features" onclick="toggleMenu()">Características</a>
+  <a href="#generador" onclick="toggleMenu()">Generador</a>
+  <a href="#como" onclick="toggleMenu()">Cómo funciona</a>
+  <a href="#equipo" onclick="toggleMenu()">Equipo</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <canvas id="canvas-logos"></canvas>
+  <div class="hero-content">
+    <div class="hero-badge">✦ Proyecto Tecmilenio · Tendencias Tecnológicas</div>
+    <h1>Documenta tu código<br>en <em>segundos</em></h1>
+    <p class="hero-sub">
+      Sube cualquier archivo de código en cualquier lenguaje.
+      La inteligencia artificial genera README, comentarios y guía de usuario al instante.
+    </p>
+    <div class="hero-buttons">
+      <a href="#generador" class="btn-primary">
+        <span>Probar el generador</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#como" class="btn-secondary">¿Cómo funciona?</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num" data-target="15">0</span><span class="stat-label">Lenguajes</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><span class="stat-num" data-target="3">0</span><span class="stat-label">Archivos generados</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><span class="stat-num" data-target="90">0</span><span class="stat-label">% menos tiempo</span></div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="reveal">
+    <p class="section-label">Por qué CodeDocs</p>
+    <h2 class="section-title">Todo lo que necesitas,<br>listo al instante</h2>
+    <p class="section-sub">Olvídate de documentar manualmente. Enfócate en construir.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card reveal">
+      <div class="feature-icon">📄</div>
+      <h3>README automático</h3>
+      <p>Genera un README.md completo con descripción, requisitos, instalación, uso y ejemplos listos para GitHub.</p>
+      <div class="card-tag">Markdown</div>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">💬</div>
+      <h3>Código comentado</h3>
+      <p>Añade docstrings y comentarios explicativos a cada función y clase de tu código automáticamente.</p>
+      <div class="card-tag">Docstrings</div>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">📖</div>
+      <h3>Guía de usuario</h3>
+      <p>Produce una guía sencilla para clientes finales en lenguaje claro, sin tecnicismos.</p>
+      <div class="card-tag">No técnica</div>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">⚡</div>
+      <h3>Multi-lenguaje</h3>
+      <p>Compatible con Python, JavaScript, Java, C++, Go, Rust, PHP, Swift, Kotlin y más.</p>
+      <div class="card-tag">15+ lenguajes</div>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">🔍</div>
+      <h3>Detección automática</h3>
+      <p>El sistema detecta el lenguaje de programación automáticamente al subir el archivo.</p>
+      <div class="card-tag">Inteligente</div>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">📦</div>
+      <h3>Copiar con un clic</h3>
+      <p>Copia cualquier sección generada al portapapeles instantáneamente para pegar donde necesites.</p>
+      <div class="card-tag">Rápido</div>
+    </div>
+  </div>
+</section>
+
+<!-- GENERADOR -->
+<section class="generator-section" id="generador">
+  <div class="reveal">
+    <p class="section-label">La herramienta</p>
+    <h2 class="section-title">Generador de documentación</h2>
+    <p class="section-sub">Pega tu código o sube un archivo y obtén documentación profesional en segundos.</p>
+  </div>
+
+  <div class="generator-card reveal">
+    <!-- TABS -->
+    <div class="gen-tabs">
+      <button class="gen-tab active" onclick="switchGenTab('paste')">
+        <span>✏️</span> Pegar código
+      </button>
+      <button class="gen-tab" onclick="switchGenTab('upload')">
+        <span>📁</span> Subir archivo
+      </button>
+    </div>
+
+    <!-- TAB: PEGAR -->
+    <div class="gen-content active" id="gen-paste">
+      <div class="editor-wrapper">
+        <div class="editor-topbar">
+          <div class="editor-dots">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <span class="editor-filename" id="editor-filename">código.py</span>
+          <span class="char-count" id="char-count">0 chars</span>
+        </div>
+        <textarea class="editor-area" id="code-input"
+          placeholder="# Pega aquí tu código en cualquier lenguaje...&#10;&#10;def calcular_descuento(precio, porcentaje):&#10;    descuento = precio * (porcentaje / 100)&#10;    return precio - descuento"
+          oninput="updateCount()"></textarea>
+      </div>
+      <div class="gen-controls">
+        <div class="lang-select-wrap">
+          <label>Lenguaje:</label>
+          <select id="lang-select">
+            <option value="auto">🔍 Detectar automáticamente</option>
+            <option value="python">🐍 Python</option>
+            <option value="javascript">⚡ JavaScript</option>
+            <option value="typescript">🔵 TypeScript</option>
+            <option value="java">☕ Java</option>
+            <option value="c++">⚙️ C++</option>
+            <option value="c#">💜 C#</option>
+            <option value="go">🐹 Go</option>
+            <option value="rust">🦀 Rust</option>
+            <option value="php">🐘 PHP</option>
+            <option value="ruby">💎 Ruby</option>
+            <option value="swift">🍎 Swift</option>
+            <option value="kotlin">🎯 Kotlin</option>
+            <option value="sql">🗄️ SQL</option>
+            <option value="bash">🖥️ Bash/Shell</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: SUBIR -->
+    <div class="gen-content" id="gen-upload">
+      <div class="drop-zone" id="drop-zone"
+        onclick="document.getElementById('file-input').click()"
+        ondragover="handleDragOver(event)"
+        ondragleave="handleDragLeave(event)"
+        ondrop="handleDrop(event)">
+        <div class="drop-icon">📂</div>
+        <p class="drop-text">Arrastra tu archivo aquí</p>
+        <p class="drop-sub">o haz clic para seleccionarlo</p>
+        <p class="drop-formats">.py · .js · .ts · .java · .cpp · .go · .rs · .php · .rb · .swift · .sql · .sh</p>
+      </div>
+      <input type="file" id="file-input"
+        accept=".py,.js,.ts,.jsx,.tsx,.java,.cpp,.c,.cs,.go,.rs,.php,.rb,.swift,.kt,.sql,.sh,.bash,.txt,.html,.css,.vue"
+        onchange="handleFileSelect(event)">
+      <div class="file-loaded" id="file-loaded">
+        <span>✅</span>
+        <span id="file-name">archivo cargado</span>
+      </div>
+      <div class="gen-controls">
+        <div class="lang-select-wrap">
+          <label>Lenguaje:</label>
+          <select id="lang-select-upload">
+            <option value="auto">🔍 Detectar automáticamente</option>
+            <option value="python">🐍 Python</option>
+            <option value="javascript">⚡ JavaScript</option>
+            <option value="java">☕ Java</option>
+            <option value="c++">⚙️ C++</option>
+            <option value="go">🐹 Go</option>
+            <option value="rust">🦀 Rust</option>
+            <option value="php">🐘 PHP</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTÓN GENERAR -->
+    <button class="btn-generate" id="gen-btn" onclick="generateDocs()">
+      <span id="btn-text">✨ Generar documentación con IA</span>
+    </button>
+
+    <!-- BARRA DE PROGRESO -->
+    <div class="progress-wrap" id="progress-wrap">
+      <div class="progress-bar" id="progress-bar"></div>
+      <span class="progress-label" id="progress-label">Analizando código...</span>
+    </div>
+
+    <!-- RESULTADOS -->
+    <div class="results" id="results">
+      <div class="result-tabs">
+        <button class="rtab active" onclick="showResult('readme')">📄 README</button>
+        <button class="rtab" onclick="showResult('documented')">💬 Código documentado</button>
+        <button class="rtab" onclick="showResult('guide')">📖 Guía de usuario</button>
+      </div>
+
+      <div class="result-panel" id="panel-readme">
+        <div class="result-header">
+          <span class="result-fname">README.md</span>
+          <button class="copy-btn" onclick="copyResult('readme')">📋 Copiar</button>
+        </div>
+        <pre class="result-block" id="out-readme"></pre>
+      </div>
+
+      <div class="result-panel" id="panel-documented" style="display:none">
+        <div class="result-header">
+          <span class="result-fname">codigo_documentado</span>
+          <button class="copy-btn" onclick="copyResult('documented')">📋 Copiar</button>
+        </div>
+        <pre class="result-block" id="out-documented"></pre>
+      </div>
+
+      <div class="result-panel" id="panel-guide" style="display:none">
+        <div class="result-header">
+          <span class="result-fname">guia_usuario.md</span>
+          <button class="copy-btn" onclick="copyResult('guide')">📋 Copiar</button>
+        </div>
+        <pre class="result-block" id="out-guide"></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CÓMO FUNCIONA -->
+<section class="how" id="como">
+  <div class="reveal">
+    <p class="section-label">El proceso</p>
+    <h2 class="section-title">Simple como 1, 2, 3</h2>
+    <p class="section-sub">Sin configuraciones. Sin curva de aprendizaje.</p>
+  </div>
+  <div class="steps">
+    <div class="step reveal">
+      <div class="step-number">1</div>
+      <div class="step-text">
+        <h3>Sube tu código</h3>
+        <p>Pega el código directamente o sube un archivo desde tu computadora. Soportamos más de 15 lenguajes de programación.</p>
+      </div>
+    </div>
+    <div class="step reveal">
+      <div class="step-number">2</div>
+      <div class="step-text">
+        <h3>La IA analiza y genera</h3>
+        <p>Claude AI de Anthropic lee tu código, entiende su estructura y propósito, y produce los tres documentos técnicos en segundos.</p>
+      </div>
+    </div>
+    <div class="step reveal">
+      <div class="step-number">3</div>
+      <div class="step-text">
+        <h3>Copia, revisa y entrega</h3>
+        <p>Revisa los resultados, ajusta lo que necesites y copia los archivos listos para tu cliente o tu repositorio de GitHub.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CARRUSEL LENGUAJES -->
+<section class="langs-section" id="lenguajes">
+  <div class="reveal">
+    <p class="section-label">Compatibilidad</p>
+    <h2 class="section-title">Tu lenguaje favorito<br>ya está soportado</h2>
+  </div>
+  <div class="langs-wrapper">
+    <div class="langs-track">
+      <div class="lang-pill"><span>🐍</span> Python</div>
+      <div class="lang-pill"><span>⚡</span> JavaScript</div>
+      <div class="lang-pill"><span>☕</span> Java</div>
+      <div class="lang-pill"><span>⚙️</span> C++</div>
+      <div class="lang-pill"><span>🔵</span> TypeScript</div>
+      <div class="lang-pill"><span>🦀</span> Rust</div>
+      <div class="lang-pill"><span>🐹</span> Go</div>
+      <div class="lang-pill"><span>🐘</span> PHP</div>
+      <div class="lang-pill"><span>💎</span> Ruby</div>
+      <div class="lang-pill"><span>🍎</span> Swift</div>
+      <div class="lang-pill"><span>🎯</span> Kotlin</div>
+      <div class="lang-pill"><span>🗄️</span> SQL</div>
+      <div class="lang-pill"><span>🖥️</span> Bash</div>
+      <div class="lang-pill"><span>💜</span> C#</div>
+      <div class="lang-pill"><span>🐍</span> Python</div>
+      <div class="lang-pill"><span>⚡</span> JavaScript</div>
+      <div class="lang-pill"><span>☕</span> Java</div>
+      <div class="lang-pill"><span>⚙️</span> C++</div>
+      <div class="lang-pill"><span>🔵</span> TypeScript</div>
+      <div class="lang-pill"><span>🦀</span> Rust</div>
+      <div class="lang-pill"><span>🐹</span> Go</div>
+      <div class="lang-pill"><span>🐘</span> PHP</div>
+      <div class="lang-pill"><span>💎</span> Ruby</div>
+      <div class="lang-pill"><span>🍎</span> Swift</div>
+      <div class="lang-pill"><span>🎯</span> Kotlin</div>
+      <div class="lang-pill"><span>🗄️</span> SQL</div>
+      <div class="lang-pill"><span>🖥️</span> Bash</div>
+      <div class="lang-pill"><span>💜</span> C#</div>
+    </div>
+  </div>
+</section>
+
+<!-- EQUIPO -->
+<section class="team-section" id="equipo">
+  <div class="reveal">
+    <p class="section-label">El equipo</p>
+    <h2 class="section-title">Quiénes somos</h2>
+    <p class="section-sub">Estudiantes de Ing. Desarrollo de Software · Sexto semestre · Universidad Tecmilenio</p>
+  </div>
+  <div class="team-grid">
+    <div class="team-card reveal">
+      <div class="team-avatar">JA</div>
+      <h3>Jesus Gabriel Abrego Tello</h3>
+      <p>Desarrollo de software · IDS</p>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-avatar">OZ</div>
+      <h3>Osvaldo Jahir Zambrano Flores</h3>
+      <p>Desarrollo de software · IDS</p>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-avatar">CD</div>
+      <h3>Carlos Uriel Dominguez Peña</h3>
+      <p>Desarrollo de software · IDS</p>
+    </div>
+  </div>
+  <div class="teacher-card reveal">
+    <span>👩‍🏫</span>
+    <div>
+      <p class="teacher-label">Docente</p>
+      <p class="teacher-name">Irlanda Socorro Reyes Velazquez</p>
+      <p class="teacher-sub">Materia: Tendencias Tecnológicas</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="cta">
+  <div class="reveal">
+    <p class="section-label">Empieza ahora</p>
+    <h2 class="section-title">¿Listo para documentar<br>más rápido?</h2>
+    <p class="section-sub">Prueba el generador sin registro, sin costo, sin límites.</p>
+    <a href="#generador" class="btn-primary" style="font-size:16px; padding:16px 36px;">
+      <span>Ir al generador</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-logo">Code<span>Docs</span></div>
+    <div class="footer-links">
+      <a href="#features">Características</a>
+      <a href="#generador">Generador</a>
+      <a href="#equipo">Equipo</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 <strong>CodeDocs</strong> — Proyecto académico · Universidad Tecmilenio · Tendencias Tecnológicas</p>
+    <p>Desarrollado con Claude AI de Anthropic</p>
+  </div>
+</footer>
+
+<!-- BOTÓN VOLVER ARRIBA -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script src="script.js"></script>
+</body>
+</html>
